@@ -1,10 +1,10 @@
 
-HOSTNAME = '12.0.0.1'
+HOSTNAME = '127.0.0.1'
 PORT = "3306"
 DATABASE = "plus_job"
 USERNAME = "root"
-PASSWORD = 'puhao'
-DB_URI = "mysql://{}:{}@{}:{}?charset=utf8".format(USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE)
+# PASSWORD = 'puhao'
+DB_URI = "mysql://{}@{}:{}/{}?charset=utf8".format(USERNAME, HOSTNAME, PORT, DATABASE)
 
 
 class BaseConfig(object):
