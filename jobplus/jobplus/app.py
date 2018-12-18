@@ -16,6 +16,7 @@ def register_blueprints(app):
 def create_app(config):
     app = Flask(__name__)
     app.config.from_object(configs.get(config))
+    db.init_app(app)
     Migrate(app=app, db=db)
     register_blueprints(app)
     return app
