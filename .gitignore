@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -110,3 +111,11 @@ logs/*
 !logs/.gitkeep
 uploads/*
 !uploads/.gitkeep
+=======
+.*
+.*/
+
+venv/
+__pycache__/
+*.pyc
+>>>>>>> c7594099b2a2393673df70a3d93aaf9dbdefa064
