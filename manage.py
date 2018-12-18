@@ -1,5 +1,5 @@
 import os
-from jobplus.jobplus import create_app
+from jobplus import create_app
 from dotenv import load_dotenv
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -8,4 +8,4 @@ if os.path.exists(dotenv_path):
 app = create_app('development')
 
 if __name__ == '__main__':
-    app.run(port=1218)
+    app.run()
