@@ -1,5 +1,5 @@
 import os
-from jobplus import create_app
+from jobplus.app import create_app
 from dotenv import load_dotenv
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
