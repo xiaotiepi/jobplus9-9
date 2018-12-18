@@ -1,5 +1,5 @@
 
-HOSTNAME = '12.0.0.1'
+HOSTNAME = '127.0.0.1'
 DB_PORT = "3306"
 DATABASE = "plus_job"
 USERNAME = "root"
