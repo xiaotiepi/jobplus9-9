@@ -1,8 +1,8 @@
-from flask import (Blueprint)
+from flask import (Blueprint,render_template)
 
 front = Blueprint("front", __name__)
 
 
 @front.route("/")
 def index():
-    return "首页"
+    return render_template('index.html')
