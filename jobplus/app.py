@@ -16,11 +16,10 @@ def register_blueprints(app):
 def create_app(config):
     app = Flask(__name__)
     app.config.from_object(configs.get(config))
+    db.init_app(app)
     Migrate(app=app, db=db)
     register_blueprints(app)
-    register_errors(app)
     return app
-
 
 # 错误处理
 def register_errors(app):
@@ -35,3 +34,4 @@ def register_errors(app):
     @app.errorhandler(500)
     def internal_server_error(e):
         return render_template('errors/500.html'), 500
+
