@@ -11,6 +11,9 @@ class BaseConfig(object):
     SECRET_KEY = "2018xxxxx"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    COMPANY_PER_PAGE = 9
+    JOB_PER_PAGE = 9
+
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True

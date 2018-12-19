@@ -42,9 +42,9 @@ def logout():
     return redirect(url_for('.index'))
 
 
-@front.route("/register/boss", methods=["GET","POST"])
+@front.route("/register/boss", methods=["GET", "POST"])
 def register_boss():
-    form=RegisterForm()
+    form = RegisterForm()
     if form.validate_on_submit():
         form.create_boss()
         flash('注册成功，请登录！', 'success')
@@ -60,15 +60,3 @@ def register_user():
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
     return render_template('register_user.html', form=form)
-
-
-@front.route("/company/")
-def company_list():
-    page = request.args.get("page", default=1, type=int)
-    pagination = Company.query.paginate(
-        page=page,
-        per_page=9,
-        error_out=False
-    )
-
-    return render_template('companylist.html', pagination=pagination)
