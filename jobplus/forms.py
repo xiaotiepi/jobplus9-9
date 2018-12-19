@@ -19,6 +19,7 @@ class LoginForm(FlaskForm):
         if user and not user.check_password(field.data):
             raise ValidationError('密码错误')
 
+
 class RegisterForm(FlaskForm):
     email = StringField('邮箱', validators=[Required(), Email()])
     password = PasswordField('密码', validators=[Required(), Length(6, 24)])
@@ -26,7 +27,7 @@ class RegisterForm(FlaskForm):
     submit = SubmitField('提交')
 
     def create_user(self):
-        user=User(email=self.email.data,password=self.password.data)
+        user = User(email=self.email.data,password=self.password.data)
         db.session.add(user)
         db.session.commit()
 

@@ -1,6 +1,7 @@
 import unittest
 from flask import current_app
-from jobplus.app import create_app, db
+from jobplus import create_app, db
+
 
 
 class BasicsTestCase(unittest.TestCase):

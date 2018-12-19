@@ -27,6 +27,7 @@ class TestingConfig(BaseConfig):
                               'sqlite://'
 
 
+
 configs = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,
