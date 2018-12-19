@@ -22,8 +22,11 @@ def login():
         elif user.is_boss:
             pass
         else:
-            pass
-    flash("您的邮箱或密码输入错误,请重新输入", "error")
+            if not User.query.filter_by(email=form.email.data).first().username:
+                return redirect(url_for('user.profile'))
+            else:
+                return redirect(url_for('.index'))
+        flash("您的邮箱或密码输入错误,请重新输入", "error")
     return render_template('login.html', form=form)
 
 

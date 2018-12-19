@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_login import UserMixin
+
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -12,7 +14,7 @@ class BaseModel(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
-class User(BaseModel):
+class User(BaseModel,UserMixin):
     __tablename__ = 'users'
     ROLE_USER = 10
     ROLE_BOSS = 20
@@ -26,7 +28,7 @@ class User(BaseModel):
     work_year = db.Column(db.Integer)
     work_resume = db.column(db.LargeBinary)
     role = db.Column(db.SmallInteger, default=ROLE_USER)
-    company_id = db.Column(db.Integer, db.ForeignKey("company.id", ondelete="CASCADE"), default=0)
+    company_id = db.Column(db.Integer, db.ForeignKey("company.id", ondelete="CASCADE"))
     # 一个账号下有一个公司
     company = db.relationship("Company", backref="user", uselist=False)
 
