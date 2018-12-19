@@ -26,6 +26,7 @@ def create_app(config_name):
     login_manager.login_view = 'login'
     Migrate(app=app, db=db)
     register_blueprints(app)
+    register_errors(app)
     return app
 
 
