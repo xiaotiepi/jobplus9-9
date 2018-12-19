@@ -1,4 +1,4 @@
-
+import os
 HOSTNAME = '127.0.0.1'
 PORT = "3306"
 DATABASE = "plus_job"
@@ -22,7 +22,9 @@ class ProductionConfig(BaseConfig):
 
 
 class TestingConfig(BaseConfig):
-    pass
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+                              'sqlite://'
 
 
 configs = {
