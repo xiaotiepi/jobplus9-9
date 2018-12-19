@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_login import UserMixin
+
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -12,7 +14,7 @@ class BaseModel(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
-class User(BaseModel):
+class User(BaseModel,UserMixin):
     __tablename__ = 'users'
     ROLE_USER = 10
     ROLE_BOSS = 20

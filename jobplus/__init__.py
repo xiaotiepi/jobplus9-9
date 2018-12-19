@@ -1,8 +1,8 @@
 from flask import Flask, render_template
 from .config import configs
 from flask_migrate import Migrate
-from .models import db
-
+from .models import db,User
+from flask_login import LoginManager
 
 def register_blueprints(app):
     from .handlers import front, admin, company, job, user
@@ -18,6 +18,12 @@ def create_app(config_name):
     app.config.from_object(configs[config_name])
 #    configs[config_name].init_app(app)
     db.init_app(app)
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    @login_manager.user_loader
+    def user_loader(id):
+        return User.query.get(id)
+    login_manager.login_view = 'login'
     Migrate(app=app, db=db)
     register_blueprints(app)
     return app

@@ -16,17 +16,18 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        # print(dir(user))
         login_user(user, form.remember_me.data)
         if user.is_admin:
             pass
         elif user.is_boss:
             pass
         else:
-            if not User.query.filter_by(email=form.email.data).first()['username']:
+            if not User.query.filter_by(email=form.email.data).first().username:
                 return redirect(url_for('user.profile'))
             else:
                 return redirect(url_for('.index'))
-    flash("您的邮箱或密码输入错误,请重新输入", "error")
+        flash("您的邮箱或密码输入错误,请重新输入", "error")
     return render_template('login.html', form=form)
 
 
