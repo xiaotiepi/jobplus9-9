@@ -16,7 +16,6 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        # print(dir(user))
         login_user(user, form.remember_me.data)
         if user.is_admin:
             pass
