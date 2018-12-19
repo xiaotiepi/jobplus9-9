@@ -51,6 +51,7 @@ def register_boss():
         return redirect(url_for('.login'))
     return render_template('register_boss.html', form=form)
 
+
 @front.route("/register/user",methods=["GET","POST"])
 def register_user():
     form=RegisterForm()
@@ -59,6 +60,8 @@ def register_user():
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
     return render_template('register_user.html', form=form)
+
+
 @front.route("/company/")
 def company_list():
     page=request.args.get("page",default=1,type=int)
