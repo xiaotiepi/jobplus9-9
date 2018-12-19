@@ -28,7 +28,7 @@ class User(BaseModel,UserMixin):
     work_year = db.Column(db.Integer)
     work_resume = db.column(db.LargeBinary)
     role = db.Column(db.SmallInteger, default=ROLE_USER)
-    company_id = db.Column(db.Integer, db.ForeignKey("company.id", ondelete="CASCADE"), default=1)
+    company_id = db.Column(db.Integer, db.ForeignKey("company.id", ondelete="CASCADE"))
     # 一个账号下有一个公司
     company = db.relationship("Company", backref="user", uselist=False)
 
