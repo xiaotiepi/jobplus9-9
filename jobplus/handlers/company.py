@@ -26,7 +26,6 @@ def company_detail(id):
         abort(404)
 
 
-<<<<<<< HEAD
 @company.route("/profile/<int:id>", methods=["GET", "POST"])
 def profile(id):
     form = BossForm()
@@ -35,13 +34,4 @@ def profile(id):
         form.complete(id)
         flash("信息填写成功", 'success')
         return redirect(url_for("front.index"))
-=======
-
-@company.route("/profile/<int:id>",methods=["GET", "POST"])
-def profile(id):
-    form = BossForm()
-    if form.validate_on_submit():
-        # TODO
-        pass
->>>>>>> 修复了一个bug，并使代码更加规范
     return render_template('company/profile.html', form=form, id=id)
