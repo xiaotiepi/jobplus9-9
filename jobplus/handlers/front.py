@@ -21,7 +21,10 @@ def login():
         if user.is_admin:
             pass
         elif user.is_boss:
-            pass
+            if not Company.query.filter_by(email=form.email.data).first():
+                return redirect(url_for('company.profile'))
+            else:
+                return redirect(url_for('.index'))
         else:
             if not User.query.filter_by(email=form.email.data).first().username:
                 return redirect(url_for('user.profile'))

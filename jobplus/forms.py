@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError,IntegerField,FileField
-from wtforms.validators import Length, Email, Required,EqualTo
-from jobplus.models import db, User
+from wtforms.validators import Length, Email, Required,EqualTo,URL
+from jobplus.models import db, User,Company
 
 
 class LoginForm(FlaskForm):
@@ -46,4 +46,17 @@ class UserForm(FlaskForm):
     work_year=IntegerField("工作经验",validators=[Required()])
     work_resume = FileField('简历',validators=[Required()])
     company=StringField('公司')
+    submit=SubmitField('提交')
+
+
+class BossForm(FlaskForm):
+    email=StringField('邮箱',validators=[Required(),Email()])
+    name = StringField('企业名称',validators=[Required(),Length(3,50)])
+    address=StringField('公司地址',validators=[Required()])
+    net_site=StringField('网站链接',validators=[Required(),URL()])
+    logo=StringField("logo图片链接",validators=[Required(),URL()])
+    introduce=StringField("一句话简介",validators=[Required()])
+    detail=StringField("详细介绍")
+    financing=StringField("融资")
+    company_field=StringField("领域")
     submit=SubmitField('提交')

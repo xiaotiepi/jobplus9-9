@@ -6,6 +6,9 @@
     {{ '' }}
     {% elif field.type == 'SubmitField' %}
     {{ form.submit(class='btn btn-primary', type='submit') }}
+    {% elif field.type=='FileField' %}
+     {{ field.label }}
+     {{ form.work_resume }}
     {% elif field.type == 'BooleanField' %}
     <div class="checkbox">
       <label>{{ field() }} {{ field.label.text }}</label>
