@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError,IntegerField,FileField
 from wtforms.validators import Length, Email, Required,EqualTo
 from jobplus.models import db, User
 
@@ -35,3 +35,11 @@ class RegisterForm(FlaskForm):
         user = User(email=self.email.data, password=self.password.data,role=20)
         db.session.add(user)
         db.session.commit()
+
+class UserForm(FlaskForm):
+    username=StringField('用户名',validators=[Required(),Length(3, 24)])
+    phone_number=IntegerField('手机号',validators=[Required()])
+    work_year=IntegerField("工作经验",validators=[Required()])
+    work_resume = FileField('简历',validators=[Required()])
+    company=StringField('公司')
+    submit=SubmitField('提交')
