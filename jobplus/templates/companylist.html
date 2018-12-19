@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% from 'macros.html' import render_pagination %}
+{% block title %}
+    公司
+{% endblock %}
+{% block body %}
+    <div class="company-backgroud">
+        <h1 class="company-header">TODO:公司</h1>
+        {% for company in pagination.items %}
+        <div class="col-md-4 company-item">
+            <div class="thumbnail">
+                <a href="#" target="_blank">
+                    <img style="width: 80px;height: 80px" src="{{'http://'+ company.logo }}" alt="图片丢了">
+                    <div class="caption">
+                        <h4 >{{  company.name}}</h4>
+                        <p class="company__description">{{ company.city }}/{{ company.financing }}/{{ company.company_field }}</p>
+                    </div>
+                    <h5 style="text-align: left">{{ company.introduce }}</h5>
+
+                </a>
+            </div>
+        </div>
+  {% endfor %}
+    {{ render_pagination(pagination, 'front.company_list') }}
+    </div>
+{% endblock %}

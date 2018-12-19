@@ -1,4 +1,5 @@
-from flask import (Blueprint, render_template, redirect, url_for, flash, )
+from flask import (Blueprint, render_template, redirect, url_for, flash,
+                   request)
 from jobplus.forms import LoginForm,RegisterForm
 from flask_login import login_user, logout_user, login_required
 from jobplus.models import User,Company
@@ -55,3 +56,13 @@ def register_user():
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
     return render_template('register_user.html', form=form)
+@front.route("/company/")
+def company_list():
+    page=request.args.get("page",default=1,type=int)
+    pagination=Company.query.paginate(
+        page=page,
+        per_page=9,
+        error_out=False
+    )
+
+    return render_template('companylist.html',pagination=pagination)

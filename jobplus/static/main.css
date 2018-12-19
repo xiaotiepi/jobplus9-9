@@ -110,3 +110,19 @@ a.dilivery-btn {
 a.btn-admin {
     color: #5cb85c;
 }
+.company-backgroud{
+    margin:0 auto;
+    width: 900px;
+    border: 20px;
+
+}
+.company-header{
+    height:120px;
+    padding: 32px;
+     background-color: #EEEEEE;
+}
+.company__description{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

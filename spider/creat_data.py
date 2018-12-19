@@ -1,11 +1,10 @@
 import json
 from jobplus.models import User, Company, Job, db
 from jobplus import create_app
-
+from faker import Faker
 app = create_app("development")
 app.app_context().push()
-
-
+faker=Faker()
 # 生成一个用户boss
 def create_boss(company):
     user = User(username="boss", email='123456789@qq.com', password='123456', role=User.ROLE_BOSS)
@@ -28,7 +27,7 @@ def item_jobs():
                                   , address=job["address"],
                                   net_site=job["net_site"],
                                   logo=job["logo"],
-                                  introduce=job["introduce"],
+                                  introduce=faker.seed_instance(),
                                   detail=job["desc"],
                                   city=job["city"],
                                   financing=job["financing"],

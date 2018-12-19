@@ -29,13 +29,13 @@ class LanGou(object):
                 # 上面是爬取完一页
                 # 进行下一页,翻页
                 # 第三部，请求完第一页，进入第二页，知道不能点击
-                next_page_btn = self.broswer.find_element_by_xpath("//div[@class='pager_container']/span[last()]")
-                if "pager_next_disabled" in next_page_btn.get_attribute("class"):
+                next_page_btn = self.broswer.find_element_by_xpath("//div[@class='pager_container']/a[last()]")
+                if "page_no pager_next_disabled" in next_page_btn.get_attribute("class"):
                     with open("jobs.json",'w',newline="\n",encoding="utf-8") as f:
                         f.write(json.dumps(self.jobs))
                     break
                 else:
-                    print("page")
+                    print("下一页")
                     next_page_btn.click()
                 time.sleep(2)
         except :
@@ -75,7 +75,7 @@ class LanGou(object):
         financing=htmlEle.xpath("//ul[@class='c_feature']//text()")[7]
         company_field=htmlEle.xpath("//ul[@class='c_feature']//text()")[12]
         xinshui = htmlEle.xpath("//span[@class='salary']/text()")[0]
-        desc = "\n".join(htmlEle.xpath("//dd[@class='job_bt']//p/text()"))  # 获取该类下的所有段落的文本
+        desc = "\n".join(htmlEle.xpath("//dd[@class='job_bt']//text()"))  # 获取该类下的所有段落的文本
         job_title=htmlEle.xpath("//div[@class='job-name']//span/text()")[0]
         city=htmlEle.xpath("//dd[@class='job_request']//span/text()")[1]
         work_experience=htmlEle.xpath("//dd[@class='job_request']//span/text()")[2]

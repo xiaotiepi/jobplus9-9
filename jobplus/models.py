@@ -56,7 +56,7 @@ class Company(BaseModel):
     __tablename__ = 'company'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # 公司名字
-    name = db.Column(db.String(64), unique=True)
+    name = db.Column(db.String(64))
     # 公司地址
     address = db.Column(db.String(256))
     # 网站
@@ -71,7 +71,7 @@ class Company(BaseModel):
     # 融资
     financing = db.Column(db.String(54))
     # 领域
-    company_field = db.Column(db.String(54))
+    company_field = db.Column(db.String(128))
     job_id = db.Column(db.Integer, db.ForeignKey("job.id"))
     job = db.relationship("Job", backref="company")
 
