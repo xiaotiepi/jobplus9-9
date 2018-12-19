@@ -38,7 +38,7 @@ class LanGou(object):
                     print("下一页")
                     next_page_btn.click()
                 time.sleep(2)
-        except :
+        except:
             with open("jobs.json", 'w', newline="\n", encoding="utf-8") as f:
                 f.write(json.dumps(self.jobs, ensure_ascii=False))
             print("爬取中断")
@@ -100,7 +100,7 @@ class LanGou(object):
             'desc': desc,
             'introduce': "暂无简介",
             'address': address_one+address_tow+address_three.strip(),
-            'company_scale':company_scale.strip()
+            'company_scale': company_scale.strip()
         }
         print(job)
         self.jobs.append(job)

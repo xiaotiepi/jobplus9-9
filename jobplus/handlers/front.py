@@ -63,7 +63,7 @@ def register_boss():
     return render_template('company_register.html', form=form)
 
 
-@front.route("/userregister", methods=["GET", "POST"])
+@front.route("/register/user", methods=["GET", "POST"])
 def register_user():
     form = RegisterForm()
     if form.validate_on_submit():

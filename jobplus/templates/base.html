@@ -26,6 +26,32 @@
                 {% endif %}
             </button>
             <a class="navbar-brand" href="/">JobPlus</a>
+<<<<<<< HEAD
+=======
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">职位</a></li>
+                    <li><a href="{{ url_for('front.company_list')}}">公司</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if not current_user.is_authenticated %}
+                        <li><a href="{{ url_for('front.register_boss') }}">公司注册</a></li>
+                        <li><a href="{{ url_for('front.register_user') }}">求职者注册</a></li>
+                        <li><a href="{{ url_for('front.login') }}">登录</a></li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">已登录<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{{ url_for('front.logout') }}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}                    
+                </ul>
+            </div>
+>>>>>>> 修复了一个bug，并使代码更加规范
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">

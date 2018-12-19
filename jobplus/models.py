@@ -61,6 +61,7 @@ class User(BaseModel, UserMixin):
 
 
 class Company(BaseModel):
+
     __tablename__ = 'company'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -80,6 +81,7 @@ class Company(BaseModel):
 
 
 class Job(BaseModel):
+
     __tablename__ = 'job'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -106,9 +108,9 @@ class Delivery(BaseModel):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     job_id = db.Column(db.Integer, db.ForeignKey("job.id", ondelete="CASCADE"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
-    company_id=db.Column(db.Integer,db.ForeignKey('company.id',ondelete="CASCADE"))
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id', ondelete="CASCADE"))
     interview = db.Column(db.Boolean, default=False)
     undisposed = db.Column(db.Boolean, default=True)
-    company=db.relationship("Company",backref="deliverys")
+    company = db.relationship("Company", backref="deliverys")
     job = db.relationship("Job", backref="deliverys")
     user = db.relationship("User", backref="deliverys")
