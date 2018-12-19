@@ -26,6 +26,10 @@ class RegisterForm(FlaskForm):
     repeat_password = PasswordField('重复密码', validators=[Required(), EqualTo('password')])
     submit = SubmitField('提交')
 
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('该邮箱已经被注册')
+
     def create_user(self):
         user = User(email=self.email.data,password=self.password.data)
         db.session.add(user)
