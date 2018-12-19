@@ -23,7 +23,9 @@ class ProductionConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'sqlite://'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+                              'sqlite://'
+
 
 
 configs = {

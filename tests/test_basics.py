@@ -3,6 +3,7 @@ from flask import current_app
 from jobplus import create_app, db
 
 
+
 class BasicsTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')
