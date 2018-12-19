@@ -7,10 +7,11 @@ company = Blueprint("company", __name__, url_prefix='/company')
 def index():
     return "公司信息"
 
-@company.route("/profile/<int:id>",methods=["GET","POST"])
+
+@company.route("/profile/<int:id>",methods=["GET", "POST"])
 def profile(id):
-    form=BossForm()
+    form = BossForm()
     if form.validate_on_submit():
-        #TODO
+        # TODO
         pass
-    return render_template('company/profile.html', form=form,id=id)
+    return render_template('company/profile.html', form=form, id=id)

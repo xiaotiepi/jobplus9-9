@@ -31,7 +31,7 @@ class LanGou(object):
                 # 第三部，请求完第一页，进入第二页，知道不能点击
                 next_page_btn = self.broswer.find_element_by_xpath("//div[@class='pager_container']/a[last()]")
                 if "page_no pager_next_disabled" in next_page_btn.get_attribute("class"):
-                    with open("jobs.json",'w',newline="\n",encoding="utf-8") as f:
+                    with open("jobs.json", 'w', newline="\n", encoding="utf-8") as f:
                         f.write(json.dumps(self.jobs))
                     break
                 else:
@@ -40,7 +40,7 @@ class LanGou(object):
                 time.sleep(2)
         except :
             with open("jobs.json", 'w', newline="\n", encoding="utf-8") as f:
-                f.write(json.dumps(self.jobs,ensure_ascii=False))
+                f.write(json.dumps(self.jobs, ensure_ascii=False))
             print("爬取中断")
 
     # 第一步，请求界面，
@@ -72,38 +72,37 @@ class LanGou(object):
         net_site = htmlEle.xpath("//ul[@class='c_feature']//a/@href")[0]
         # financingEnv=htmlEle.xpath("//dl[@id='job_company']//li")[1]
         # // *[ @ id = "job_company"] / dd / ul / li[3] / text()
-        financing=htmlEle.xpath("//ul[@class='c_feature']//text()")[7]
-        company_field=htmlEle.xpath("//ul[@class='c_feature']//text()")[12]
+        financing = htmlEle.xpath("//ul[@class='c_feature']//text()")[7]
+        company_field = htmlEle.xpath("//ul[@class='c_feature']//text()")[12]
         xinshui = htmlEle.xpath("//span[@class='salary']/text()")[0]
         desc = "\n".join(htmlEle.xpath("//dd[@class='job_bt']//text()"))  # 获取该类下的所有段落的文本
-        job_title=htmlEle.xpath("//div[@class='job-name']//span/text()")[0]
+        job_title = htmlEle.xpath("//div[@class='job-name']//span/text()")[0]
         city=htmlEle.xpath("//dd[@class='job_request']//span/text()")[1]
-        work_experience=htmlEle.xpath("//dd[@class='job_request']//span/text()")[2]
-        study_experience= htmlEle.xpath("//dd[@class='job_request']//span/text()")[3]
-        work_tags=htmlEle.xpath("//dd[@class='job_request']//li/text()")
-        address_one=htmlEle.xpath("//div[@class='work_addr']//a/text()")[0]
+        work_experience = htmlEle.xpath("//dd[@class='job_request']//span/text()")[2]
+        study_experience = htmlEle.xpath("//dd[@class='job_request']//span/text()")[3]
+        work_tags = htmlEle.xpath("//dd[@class='job_request']//li/text()")
+        address_one = htmlEle.xpath("//div[@class='work_addr']//a/text()")[0]
         address_tow = htmlEle.xpath("//div[@class='work_addr']//a/text()")[1]
-        address_three=htmlEle.xpath("//div[@class='work_addr']//text()")[6]
+        address_three = htmlEle.xpath("//div[@class='work_addr']//text()")[6]
         job = {
-            'job_title':job_title,
-            'logo':logo.replace('//',""),
-            'net_site':net_site,
-            'financing':financing.strip(),
-            "company_field":company_field.strip(),
+            'job_title': job_title,
+            'logo': logo.replace('//', ""),
+            'net_site': net_site,
+            'financing': financing.strip(),
+            "company_field": company_field.strip(),
             'xinshui': xinshui.strip(),
-            'city':city.replace(r"/","").strip(),
+            'city': city.replace(r"/", "").strip(),
             'work_experience': work_experience.replace("/", "").strip(),
             'study_experience': study_experience.replace("/", "").strip(),
-            'work_tags':",".join(work_tags),
+            'work_tags': ",".join(work_tags),
             'company': compony.strip(),
             'desc': desc,
-            'introduce':"暂无简介",
-            'address':address_one+address_tow+address_three.strip()
+            'introduce': "暂无简介",
+            'address': address_one+address_tow+address_three.strip()
 
         }
         print(job)
         self.jobs.append(job)
-
 
 
 if __name__ == '__main__':

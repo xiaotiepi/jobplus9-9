@@ -1,8 +1,8 @@
-from flask import (Blueprint, render_template, redirect, url_for, flash,
-                   request)
-from jobplus.forms import LoginForm,RegisterForm
+from flask import (Blueprint, render_template, redirect,
+                   url_for, flash, request)
+from jobplus.forms import LoginForm, RegisterForm
 from flask_login import login_user, logout_user, login_required
-from jobplus.models import User,Company
+from jobplus.models import User, Company
 
 front = Blueprint("front", __name__)
 
@@ -22,12 +22,12 @@ def login():
             pass
         elif user.is_boss:
             if not Company.query.filter_by(email=form.email.data).first():
-                return redirect(url_for('company.profile',id=user.id))
+                return redirect(url_for('company.profile', id=user.id))
             else:
                 return redirect(url_for('.index'))
         else:
             if not User.query.filter_by(email=form.email.data).first().username:
-                return redirect(url_for('user.profile',id=user.id))
+                return redirect(url_for('user.profile', id=user.id))
             else:
                 return redirect(url_for('.index'))
         flash("您的邮箱或密码输入错误,请重新输入", "error")
@@ -42,7 +42,7 @@ def logout():
     return redirect(url_for('.index'))
 
 
-@front.route("/register/boss",methods=["GET","POST"])
+@front.route("/register/boss", methods=["GET","POST"])
 def register_boss():
     form=RegisterForm()
     if form.validate_on_submit():
@@ -52,9 +52,9 @@ def register_boss():
     return render_template('register_boss.html', form=form)
 
 
-@front.route("/register/user",methods=["GET","POST"])
+@front.route("/register/user", methods=["GET", "POST"])
 def register_user():
-    form=RegisterForm()
+    form = RegisterForm()
     if form.validate_on_submit():
         form.create_user()
         flash('注册成功，请登录！', 'success')
@@ -64,11 +64,11 @@ def register_user():
 
 @front.route("/company/")
 def company_list():
-    page=request.args.get("page",default=1,type=int)
-    pagination=Company.query.paginate(
+    page = request.args.get("page", default=1, type=int)
+    pagination = Company.query.paginate(
         page=page,
         per_page=9,
         error_out=False
     )
 
-    return render_template('companylist.html',pagination=pagination)
+    return render_template('companylist.html', pagination=pagination)

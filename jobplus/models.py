@@ -14,11 +14,14 @@ class BaseModel(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
-class User(BaseModel,UserMixin):
+class User(BaseModel, UserMixin):
+
     __tablename__ = 'users'
+
     ROLE_USER = 10
     ROLE_BOSS = 20
     ROLE_ADMIN = 30
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # unique是否唯一，index索引
     username = db.Column(db.String(32), unique=True, index=True)
@@ -53,7 +56,9 @@ class User(BaseModel,UserMixin):
 
 
 class Company(BaseModel):
+
     __tablename__ = 'company'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # 公司名字
     name = db.Column(db.String(64))
@@ -77,7 +82,9 @@ class Company(BaseModel):
 
 
 class Job(BaseModel):
+
     __tablename__ = 'job'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     job_title = db.Column(db.String(128))
     # 工作经验要求
