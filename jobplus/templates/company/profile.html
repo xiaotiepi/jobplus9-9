@@ -8,6 +8,6 @@
 {% block body %}
 <div class="form">
   <h2>完善企业信息</h2>
-  {{ render_form(form, url_for('company.profile')) }}
+  {{ render_form(form, url_for('company.profile',id=id)) }}
 </div>
 {% endblock %}

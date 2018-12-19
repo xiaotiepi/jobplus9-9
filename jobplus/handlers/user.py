@@ -9,7 +9,14 @@ def index():
     return "用户信息"
 
 
-@user.route("/profile",methods=["GET","POST"])
-def profile():
+@user.route("/profile/<int:id>",methods=["GET","POST"])
+def profile(id):
     form=UserForm()
-    return render_template('user/profile.html',form=form)
+    if form.validate_on_submit():
+        #TODO 实现上传文件功能
+        # print(form.work_resume.data)
+        # filename = 'jobplus/resume' + form.work_resume.data
+        # form.work_resume.data.save(filename)
+        # form.work_resume.data=filename
+        form.complete(id)
+    return render_template('user/profile.html',form=form,id=id)

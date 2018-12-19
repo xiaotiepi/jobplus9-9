@@ -22,12 +22,12 @@ def login():
             pass
         elif user.is_boss:
             if not Company.query.filter_by(email=form.email.data).first():
-                return redirect(url_for('company.profile'))
+                return redirect(url_for('company.profile',id=user.id))
             else:
                 return redirect(url_for('.index'))
         else:
             if not User.query.filter_by(email=form.email.data).first().username:
-                return redirect(url_for('user.profile'))
+                return redirect(url_for('user.profile',id=user.id))
             else:
                 return redirect(url_for('.index'))
         flash("您的邮箱或密码输入错误,请重新输入", "error")

@@ -3,8 +3,7 @@ HOSTNAME = '127.0.0.1'
 PORT = "3306"
 DATABASE = "plus_job"
 USERNAME = "root"
-#PASSWORD = 'puhao'
-DB_URI = "mysql://{}}@{}:{}/{}?charset=utf8".format(USERNAME, HOSTNAME, PORT, DATABASE)
+DB_URI = "mysql://{}@{}:{}/{}?charset=utf8".format(USERNAME, HOSTNAME, PORT, DATABASE)
 
 
 class BaseConfig(object):
@@ -13,7 +12,7 @@ class BaseConfig(object):
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = DB_URI
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DEVELOP_DATABASE_URL") or DB_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
