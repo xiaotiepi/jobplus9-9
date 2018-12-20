@@ -61,11 +61,11 @@
     <div class="media">
       <div class="media-left">
         <a href="#">
-        <img class="media-object" src="{{ job.company.company.logo }}" width="40" height="40" alt="...">
+        <img class="media-object" src="{{ 'http://'+job.company_msg.logo }}" width="40" height="40" alt="...">
         </a>
       </div>
       <div class="media-body"><h4 class="media-heading">{{ job.job_title }}</h4>
-        <span class="company-meta">{{ job.company.company.company_field }}/{{ job.company.company.financing }}/{{ job.company.company.address }}</span>
+        <span class="company-meta">{{ job.company_msg.company_field }}/{{ job.company_msg.financing }}/{{ job.company_msg.address }}</span>
       </div>
     </div>
   </div>

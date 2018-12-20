@@ -13,4 +13,4 @@ def job_list():
         error_out=False
     )
     posts = pagination.items  # 当前页数的记录列表
-    return render_template('job/job_list.html,', pagination=pagination, posts=posts)
+    return render_template('job/job_list.html', pagination=pagination, posts=posts)

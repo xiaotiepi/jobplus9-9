@@ -64,9 +64,3 @@ def register_user():
     return render_template('register_user.html', form=form)
 
 
-
-
-
-
-
-

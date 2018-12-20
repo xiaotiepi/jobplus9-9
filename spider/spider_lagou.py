@@ -50,7 +50,7 @@ class LanGou(object):
         links = htmlEle.xpath("//a[@class='position_link']/@href")
         for detail_url in links:
             self.request_detail(detail_url)
-            time.sleep(2)
+            time.sleep(3)
 
     # 第二步，循环请求详情界面数据，窗口切换，关闭，切换到列表页
     def request_detail(self, url):
@@ -101,7 +101,6 @@ class LanGou(object):
             'introduce': "暂无简介",
             'address': address_one+address_tow+address_three.strip(),
             'company_scale':company_scale.strip()
-
         }
         print(job)
         self.jobs.append(job)

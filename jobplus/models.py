@@ -55,7 +55,6 @@ class User(BaseModel, UserMixin):
 
 class Company(BaseModel):
     __tablename__ = 'company'
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     name = db.Column(db.String(64))  # 公司名字
@@ -69,9 +68,10 @@ class Company(BaseModel):
     company_field = db.Column(db.String(128))  # 领域
     company_scale = db.column(db.String(128))  # 规模大小
 
-
     def __repr__(self):
         return self.name
+
+
 
 
 class Job(BaseModel):
@@ -82,7 +82,6 @@ class Job(BaseModel):
     study_experience = db.Column(db.String(54))  # 学历要求
     work_tags = db.Column(db.String(128))  # 职位标签
     salary_range = db.Column(db.String(54))  # 薪酬范围
-    # company = db.relationship('User', uselist=False, backref=db.backref('jobs', lazy='dynamic'))
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"))
     company_msg = db.relationship("Company", backref="job")
 
