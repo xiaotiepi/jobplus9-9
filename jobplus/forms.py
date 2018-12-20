@@ -3,6 +3,7 @@ from wtforms import (StringField, PasswordField, SubmitField, BooleanField,
                      ValidationError, IntegerField, FileField)
 from wtforms.validators import Length, Email, DataRequired, EqualTo, URL
 from jobplus.models import db, User, Company
+from .decorators import create
 
 
 class LoginForm(FlaskForm):
@@ -22,7 +23,7 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    # username = StringField('用户名', validators=[DataRequired(), Length(1, 10)])
+    username = StringField('用户名', validators=[DataRequired(), Length(1, 10)])
     email = StringField('邮箱', validators=[DataRequired(), Email(), Length(1, 254)])
     password = PasswordField('密码', validators=[DataRequired(), Length(6, 24)])
     repeat_password = PasswordField('重复密码', validators=[DataRequired(), EqualTo('password')])
@@ -32,27 +33,21 @@ class RegisterForm(FlaskForm):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('该邮箱已经被注册')
 
-    # def validate_username(self, field):
-    #     if User.query.filter_by(username=field.data).first():
-    #         raise ValidationError('这个名字已经被注册了')
+    def validate_username(self, field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError('这个名字已经被注册了')
 
+    @create(role=10)
     def create_user(self):
-        # user = User(email=self.email.data, password=self.password.data)
-        user = User()
-        user.username = self.usename.data
-        user.emil = self.email.data
-        user.password = self.password.data
-        db.session.add(user)
-        db.session.commit()
+        return True
 
+    @create(role=20)
     def create_boss(self):
-        # user = User(email=self.email.data, password=self.password.data, role=20)
-        user = User()
-        user.email = self.emal.data
-        user.password = self.password.data
-        user.role = 20
-        db.session.add(user)
-        db.session.commit()
+        return True
+
+    @create(role=30)
+    def create_admin(self):
+        return True
 
 
 class UserForm(FlaskForm):
@@ -75,17 +70,22 @@ class UserForm(FlaskForm):
 
 
 class BossForm(FlaskForm):
-    email = StringField('邮箱', validators=[DataRequired(), Email()])
     name = StringField('企业名称', validators=[DataRequired(), Length(3, 50)])
     address = StringField('公司地址', validators=[DataRequired()])
     net_site = StringField('网站链接', validators=[DataRequired(), URL()])
     logo = StringField("logo图片链接", validators=[DataRequired(), URL()])
     introduce = StringField("一句话简介", validators=[DataRequired()])
     detail = StringField("详细介绍")
+    city=StringField("城市")
     financing = StringField("融资")
     company_field = StringField("领域")
     submit = SubmitField('提交')
 
     def complete(self, id):
-        # TODO
-        pass
+        company = Company()
+        self.populate_obj(company)
+        user = User.query.filter_by(id=id).first()
+        user.company = company
+        db.session.add(company)
+        db.session.add(user)
+        db.session.commit()

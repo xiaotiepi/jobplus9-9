@@ -21,12 +21,12 @@ def login():
         if user.is_admin:
             pass
         elif user.is_boss:
-            if not Company.query.filter_by(email=form.email.data).first():
+            if not User.query.filter_by(email=form.email.data).first().company_id:
                 return redirect(url_for('company.profile', id=user.id))
             else:
                 return redirect(url_for('.index'))
         else:
-            if not User.query.filter_by(email=form.email.data).first().username:
+            if not User.query.filter_by(email=form.email.data).first().phone_number:
                 return redirect(url_for('user.profile', id=user.id))
             else:
                 return redirect(url_for('.index'))
@@ -38,7 +38,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('logout success', 'success')
+    flash('已退出登录', 'success')
     return redirect(url_for('.index'))
 
 

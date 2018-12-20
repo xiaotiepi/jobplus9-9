@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, current_app
+from flask import Blueprint, render_template, redirect, url_for, request, current_app,flash
 from ..forms import BossForm
 from jobplus.models import Company
 
@@ -21,6 +21,7 @@ def company_list():
 def profile(id):
     form = BossForm()
     if form.validate_on_submit():
-        # TODO
-        pass
+        form.complete(id)
+        flash("信息填写成功",'success')
+        return redirect(url_for("front.index"))
     return render_template('company/profile.html', form=form, id=id)
