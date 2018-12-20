@@ -4,7 +4,13 @@ HOSTNAME = '127.0.0.1'
 PORT = "3306"
 DATABASE = "plus_job"
 USERNAME = "root"
+
+
 DB_URI = "mysql://{}@{}:{}/{}?charset=utf8".format(USERNAME, HOSTNAME, PORT, DATABASE)
+
+
+
+
 
 
 class BaseConfig(object):
@@ -28,7 +34,6 @@ class TestingConfig(BaseConfig):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
                               'sqlite://'
-
 
 
 configs = {

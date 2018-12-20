@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% from 'macros.html' import render_pagination %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='company.css') }}">
+{% endblock %}
+{% block title %}
+    公司详情
+{% endblock %}
+{% block body %}
+    <div class="company_detail-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <img alt="加载失败" src="{{ 'http://'+ company.logo }}"
+                         class="img-thumbnail company_logo"/>
+                </div>
+                <div class="col-md-6">
+                    <dl>
+                        <h3>
+                            {{ company.name }}
+                        </h3>
+                        <h4>
+                            {{ "公司简介:"+company.introduce }}
+                        </h4>
+                        <h4>
+                            {{ company.company_field }}
+                        </h4>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="left_basic">
+                <div class="tabbable" >
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-18488" data-toggle="tab">相关简介</a>
+                        </li>
+                        <li>
+                            <a href="#panel-824024" data-toggle="tab">职位招聘</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-18488">
+                            <h4>
+                                {{ company.detail }}
+                            </h4>
+                        </div>
+                        <div class="tab-pane" id="panel-824024">
+                            {% for job in  company.job %}
+                                <div class="job_item">
+                                 <h4>{{ job.job_title }}</h4>
+                                <h5>{{ job.work_experience }}</h5>
+                                <h5>{{ job.study_experience }}</h5>
+                                <h5>{{ job.salary_range }}</h5>
+                                    {% for tag in job.tag_list %}
+                                    <span class="label"></span> <span style="background-color: #fd5f39" class="label badge-success">{{ tag }}</span>
+                                    {% endfor %}
+                                    
+
+
+                                </div>
+
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+     <div class="col-md-4 ">
+                <div class="right_basic">
+                    <h3>
+                        公司基本信息
+                    </h3>
+                    <h5>
+                        {{ "领域：" +company.company_field }}
+                    </h5>
+                    <h5>
+                        {{ "融资："+company.financing }}
+                    </h5>
+                    <h5>
+                        {{ "城市：" +company.city }}
+                    </h5>
+                </div>
+            </div>
+        </div>
+{% endblock %}

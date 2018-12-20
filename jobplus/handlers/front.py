@@ -1,6 +1,8 @@
+
 from flask import (Blueprint, render_template, redirect,
-                   url_for, flash, request)
+                   url_for, flash, request, abort)
 from jobplus.forms import LoginForm, RegisterForm
+
 from flask_login import login_user, logout_user, login_required
 from jobplus.models import User, Company
 
@@ -60,3 +62,11 @@ def register_user():
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
     return render_template('register_user.html', form=form)
+
+
+
+
+
+
+
+

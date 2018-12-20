@@ -73,7 +73,8 @@ class LanGou(object):
         # financingEnv=htmlEle.xpath("//dl[@id='job_company']//li")[1]
         # // *[ @ id = "job_company"] / dd / ul / li[3] / text()
         financing = htmlEle.xpath("//ul[@class='c_feature']//text()")[7]
-        company_field = htmlEle.xpath("//ul[@class='c_feature']//text()")[12]
+        company_field = htmlEle.xpath("//ul[@class='c_feature']//text()")[2]
+        company_scale=htmlEle.xpath("//ul[@class='c_feature']//text()")[12]
         xinshui = htmlEle.xpath("//span[@class='salary']/text()")[0]
         desc = "\n".join(htmlEle.xpath("//dd[@class='job_bt']//text()"))  # 获取该类下的所有段落的文本
         job_title = htmlEle.xpath("//div[@class='job-name']//span/text()")[0]
@@ -98,7 +99,8 @@ class LanGou(object):
             'company': compony.strip(),
             'desc': desc,
             'introduce': "暂无简介",
-            'address': address_one+address_tow+address_three.strip()
+            'address': address_one+address_tow+address_three.strip(),
+            'company_scale':company_scale.strip()
 
         }
         print(job)

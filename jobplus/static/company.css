@@ -1,0 +1,48 @@
+.company-backgroud{
+    margin:0 auto;
+    width: 900px;
+    border: 20px;
+}
+
+.company-item {
+  text-align: center;
+}
+.company-header{
+    text-align: center;
+    height:120px;
+    padding: 32px;
+     background-color: #EEEEEE;
+}
+.company_detail-header{
+    padding: 32px;
+    background-color: #EEEEEE;
+
+
+}
+
+.company__description{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.company_logo{
+    float: right;
+    margin-right: 32px;
+    width: 120px;
+    height: 120px;
+}
+.right_basic{
+
+    margin-top: 60px;
+}
+.left_basic{
+    width: 700px;
+    float: right;
+    margin-top:50px ;
+}
+.job_item{
+    margin: 20px;
+    padding: 20px;
+    background-color: #fdede9;
+}
+
