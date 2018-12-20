@@ -3,6 +3,7 @@
 {% block title %}
     公司
 {% endblock %}
+
 {% block body %}
     <div class="company-backgroud">
         <h1 class="company-header">TODO:公司</h1>
@@ -16,11 +17,10 @@
                         <p class="company__description">{{ company.city }}/{{ company.financing }}/{{ company.company_field }}</p>
                     </div>
                     <h5 style="text-align: left">{{ company.introduce }}</h5>
-
                 </a>
             </div>
         </div>
-  {% endfor %}
-    {{ render_pagination(pagination, 'front.company_list') }}
+        {% endfor %}
+    {{ render_pagination(pagination, 'company.company_list') }}
     </div>
 {% endblock %}

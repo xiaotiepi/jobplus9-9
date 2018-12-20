@@ -1,4 +1,5 @@
 import os
+
 HOSTNAME = '127.0.0.1'
 PORT = "3306"
 DATABASE = "plus_job"
@@ -8,12 +9,15 @@ DB_URI = "mysql://{}@{}:{}/{}?charset=utf8".format(USERNAME, HOSTNAME, PORT, DAT
 
 class BaseConfig(object):
     SECRET_KEY = "2018xxxxx"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    COMPANY_PER_PAGE = 9
+    JOB_PER_PAGE = 9
 
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get("DEVELOP_DATABASE_URL") or DB_URI
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(BaseConfig):

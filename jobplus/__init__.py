@@ -25,6 +25,7 @@ def register_extensions(app):
         return User.query.get(id)
 
     login_manager.login_view = 'login'
+    register_errors(app)
 
 
 def create_app(config_name):
@@ -32,7 +33,6 @@ def create_app(config_name):
     app.config.from_object(configs[config_name])
     register_extensions(app)
     register_blueprints(app)
-    register_errors(app)
     return app
 
 
