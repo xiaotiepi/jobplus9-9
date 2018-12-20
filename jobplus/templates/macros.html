@@ -46,3 +46,28 @@
   </ul>
 </nav>
 {% endmacro %}
+
+{% macro render_job(job) %}
+<div class="col-sm-6 col-md-4">
+  <div class="job-box">
+    <div class="caption">
+      <b>{{ job.job_title }}</b>
+      <p> 经验{{ job.work_experience }} {% if job.work_experience != '不限' %}年{% endif %} 学历{{ job.study_experience }}</p>
+      {% for tag in job.tag_list %}
+      <span class="label label-default">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    <hr>
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+        <img class="media-object" src="{{ job.company.company.logo }}" width="40" height="40" alt="...">
+        </a>
+      </div>
+      <div class="media-body"><h4 class="media-heading">{{ job.job_title }}</h4>
+        <span class="company-meta">{{ job.company.company.company_field }}/{{ job.company.company.financing }}/{{ job.company.company.address }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
