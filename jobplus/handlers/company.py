@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, current_app, flash, abort
 from ..forms import BossForm
-from jobplus.models import Company
+from ..models import Company
 
 company = Blueprint("company", __name__, url_prefix='/company')
 

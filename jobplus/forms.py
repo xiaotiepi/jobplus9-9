@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import (StringField, PasswordField, SubmitField, BooleanField,
                      ValidationError, IntegerField, FileField)
 from wtforms.validators import Length, Email, DataRequired, EqualTo, URL
-from jobplus.models import db, User, Company
+from .models import db, User, Company
 from .decorators import create
 
 

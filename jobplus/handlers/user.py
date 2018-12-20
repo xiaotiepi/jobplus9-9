@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from jobplus.models import User
+from ..models import User
 from ..forms import UserForm
 user = Blueprint("user", __name__, url_prefix='/user')
 

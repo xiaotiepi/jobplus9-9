@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, current_app
-from jobplus.models import Job
+from ..models import Job
 
 job = Blueprint("job", __name__, url_prefix='/job')
 
