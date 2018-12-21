@@ -1,16 +1,23 @@
 
 from flask import (Blueprint, render_template, redirect,
-                   url_for, flash, request, abort)
+                   url_for, flash, request, abort,current_app)
 from jobplus.forms import LoginForm, RegisterForm
 from flask_login import login_user, logout_user, login_required
-from ..models import User, Company
+from jobplus.models import User, Company,Job
+
 
 front = Blueprint("front", __name__)
 
 
 @front.route("/")
 def index():
-    return render_template('index.html')
+    commpanys=Company.query.limit(current_app.config['COMPANY_PER_PAGE'])
+    jobs=Job.query.limit(current_app.config['JOB_PER_PAGE'])
+    data={
+        'companys':commpanys,
+        'jobs':jobs
+    }
+    return render_template('index.html',**data)
 
 
 @front.route("/login", methods=["GET", "POST"])

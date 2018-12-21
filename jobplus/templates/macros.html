@@ -71,3 +71,19 @@
   </div>
 </div>
 {% endmacro %}
+
+{% macro render_company(company) %}
+<div class="col-md-4 company-item">
+            <div class="thumbnail">
+                <a href="{{ url_for("company.company_detail",id=company.id) }}" target="_blank">
+                    <img style="width: 80px;height: 80px" src="{{'http://'+ company.logo }}" alt="图片丢了">
+                    <div class="caption">
+                        <h4 >{{  company.name}}</h4>
+                        <p class="company__description">{{ company.city }}/{{ company.financing }}/{{ company.company_field }}</p>
+
+                        <p>再招职位：{{ company.job|length }}个</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+{% endmacro %}
