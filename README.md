@@ -3,9 +3,10 @@
 ## 环境配置
 
 - python3.6
-- pip安装requirement.txt。命令或许是`sudo pip3 install requirement.txt`.
-- 如果MySQL数据库有密码，记得配置环境变量，若密码为123456：
+- pip安装requirement.txt。命令或许是`sudo pip3 install -r requirements.txt`.
+- 如果MySQL数据库有密码，记得配置环境变量，若密码为123456：\
 `set DEVELOP_DATABASE_URL=mysql://root:123456@localhost:3306/plus_job?charset=utf8`
+
 ## 数据生成
 1. 确保存在`plus_job`名称的数据库，manage.py同级目录运行 `flask db upgrade`  生成迁移文件
 2. 运行spider_laou.py文件，爬取拉钩职位信息及对应的公司信息，保存到jobs.json文件
