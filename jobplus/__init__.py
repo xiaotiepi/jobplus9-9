@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from .config import configs
 from flask_migrate import Migrate
-from .models import db, User
+from .models import db, User, Company, Job
 from flask_login import LoginManager
 
 
