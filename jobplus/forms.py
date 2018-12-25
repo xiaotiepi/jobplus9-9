@@ -23,7 +23,7 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    username = StringField('用户名', validators=[DataRequired(), Length(1, 10)])
+    username = StringField('姓名', validators=[DataRequired(), Length(1, 10)])
     email = StringField('邮箱', validators=[DataRequired(), Email(), Length(1, 254)])
     password = PasswordField('密码', validators=[DataRequired(), Length(6, 24)])
     repeat_password = PasswordField('重复密码', validators=[DataRequired(), EqualTo('password')])
@@ -51,20 +51,26 @@ class RegisterForm(FlaskForm):
 
 
 class UserForm(FlaskForm):
-    username = StringField('用户名', validators=[DataRequired(), Length(3, 24)])
-    phone_number = IntegerField('手机号', validators=[DataRequired()])
+    phone_number = StringField('手机号', validators=[DataRequired()])
     work_year = IntegerField("工作经验", validators=[DataRequired()])
-    # work_resume = FileField('简历',validators=[Required()])
-    # company=StringField('公司')
+    work_resume = StringField('简历', validators=[DataRequired(), URL()])
+    company = StringField('公司')
     submit = SubmitField('提交')
+
+    def validate_company(self, field):
+        if not Company.query.filter_by(name=field.data).first():
+            raise ValidationError('该公司不存在')
+
+    def validate_phone_number(self, field):
+        if User.query.filter_by(phone_number=field.data).first():
+            raise ValidationError("手机号已存在")
 
     def complete(self, id):
         user = User.query.filter_by(id=id).first()
-        # user.work_resume=self.work_resume.data
-        user.username = self.username.data
+        user.company = Company.query.filter_by(name=self.company.data).first()
         user.phone_number = self.phone_number.data
+        user.work_resume = self.work_resume.data
         user.work_year = self.work_year.data
-        # user.company=self.company.data
         db.session.add(user)
         db.session.commit()
 
@@ -76,7 +82,7 @@ class BossForm(FlaskForm):
     logo = StringField("logo图片链接", validators=[DataRequired(), URL()])
     introduce = StringField("一句话简介", validators=[DataRequired()])
     detail = StringField("详细介绍")
-    city=StringField("城市")
+    city = StringField("城市")
     financing = StringField("融资")
     company_field = StringField("领域")
     submit = SubmitField('提交')

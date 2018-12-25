@@ -49,23 +49,24 @@ def logout():
     return redirect(url_for('.index'))
 
 
-@front.route("/register/boss", methods=["GET", "POST"])
+@front.route("/companyregister", methods=["GET", "POST"])
 def register_boss():
     form = RegisterForm()
+    form.username.label="企业名称"
     if form.validate_on_submit():
         form.create_boss()
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
-    return render_template('register_boss.html', form=form)
+    return render_template('company_register.html', form=form)
 
 
-@front.route("/register/user", methods=["GET", "POST"])
+@front.route("/userregister", methods=["GET", "POST"])
 def register_user():
     form = RegisterForm()
     if form.validate_on_submit():
         form.create_user()
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
-    return render_template('register_user.html', form=form)
+    return render_template('user_register.html', form=form)
 
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, current_app, flash, abort
 from ..forms import BossForm
-from ..models import Company
+from ..models import Company,User
 
 company = Blueprint("company", __name__, url_prefix='/company')
 
@@ -29,6 +29,7 @@ def company_detail(id):
 @company.route("/profile/<int:id>", methods=["GET", "POST"])
 def profile(id):
     form = BossForm()
+    form.name.data=User.query.filter_by(id=id).first().username
     if form.validate_on_submit():
         form.complete(id)
         flash("信息填写成功", 'success')

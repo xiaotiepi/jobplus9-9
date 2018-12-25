@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,redirect,url_for,flash
 from ..models import User
 from ..forms import UserForm
 user = Blueprint("user", __name__, url_prefix='/user')
@@ -13,10 +13,7 @@ def index():
 def profile(id):
     form = UserForm()
     if form.validate_on_submit():
-        # TODO 实现上传文件功能
-        # print(form.work_resume.data)
-        # filename = 'jobplus/resume' + form.work_resume.data
-        # form.work_resume.data.save(filename)
-        # form.work_resume.data=filename
         form.complete(id)
+        flash("个人信息填写成功","success")
+        return redirect(url_for("front.index"))
     return render_template('user/profile.html', form=form, id=id)
