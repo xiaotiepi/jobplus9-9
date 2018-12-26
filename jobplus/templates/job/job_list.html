@@ -1,8 +1,27 @@
 {% extends "base.html" %}
+<<<<<<< HEAD
+=======
+{% from "macros.html" import render_pagination, render_job %}
+
+>>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
 {% block title %}
     Joblist
 {% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 
+=======
+<div class="jumbotron">
+    <h1>Todo:Jobfilter</h1>
+</div>
+
+<div class="job-list">
+    {% for job in pagination.items %}
+        {{ render_job(job) }}
+    {% endfor %}
+</div>
+
+{{ render_pagination(pagination, 'job.job_list') }}
+>>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
 {% endblock %}

@@ -46,3 +46,44 @@
   </ul>
 </nav>
 {% endmacro %}
+
+{% macro render_job(job) %}
+<div class="col-sm-6 col-md-4">
+  <div class="job-box">
+    <div class="caption">
+      <b>{{ job.job_title }}</b>
+      <p> 经验{{ job.work_experience }} {% if job.work_experience != '不限' %}年{% endif %} 学历{{ job.study_experience }}</p>
+      {% for tag in job.tag_list %}
+      <span class="label label-default">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    <hr>
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+        <img class="media-object" src="{{ 'http://'+job.company_msg.logo }}" width="40" height="40" alt="...">
+        </a>
+      </div>
+      <div class="media-body"><h4 class="media-heading">{{ job.job_title }}</h4>
+        <span class="company-meta">{{ job.company_msg.company_field }}/{{ job.company_msg.financing }}/{{ job.company_msg.address }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_company(company) %}
+<div class="col-md-4 company-item">
+            <div class="thumbnail">
+                <a href="{{ url_for("company.company_detail",id=company.id) }}" target="_blank">
+                    <img style="width: 80px;height: 80px" src="{{'http://'+ company.logo }}" alt="图片丢了">
+                    <div class="caption">
+                        <h4 >{{  company.name}}</h4>
+                        <p class="company__description">{{ company.city }}/{{ company.financing }}/{{ company.company_field }}</p>
+
+                        <p>再招职位：{{ company.job|length }}个</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+{% endmacro %}

@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from .config import configs
 from flask_migrate import Migrate
-from .models import db, User
+from .models import db, User, Company, Job
 from flask_login import LoginManager
 
 
@@ -31,6 +31,7 @@ def register_extensions(app):
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(configs[config_name])
+    configs[config_name].init_app(app)
     register_extensions(app)
     register_blueprints(app)
     return app

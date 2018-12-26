@@ -5,6 +5,7 @@
     <title>{% block title %} {% endblock%} </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    {% block css %} {% endblock%}
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -18,13 +19,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">JobPlus</a>
+            <a class="navbar-brand" href="#">JobPlus</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+<<<<<<< HEAD
                     <li><a href="#">首页</a></li>
                     <li><a href="{{ url_for('job.job_list')}}">职位</a></li>
                     <li><a href="{{ url_for('company.company_list')}}">公司</a></li>
+=======
+                    <li><a href="/">首页</a></li>
+
+                    <li><a href="{{ url_for('job.job_list')}}">职位</a></li>
+                    <li><a href="{{ url_for('company.company_list')}}">公司</a></li>
+
+
+>>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if not current_user.is_authenticated %}
@@ -33,7 +43,7 @@
                         <li><a href="{{ url_for('front.login') }}">登录</a></li>
                     {% else %}
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">已登录<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ current_user.username }}<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{{ url_for('front.logout') }}">Logout</a></li>

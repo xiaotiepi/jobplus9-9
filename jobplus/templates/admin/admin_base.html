@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-3">
+        <h2>管理</h2>
+        <div class="list-group">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                    管理
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+
+                    <li class="dropdown-header">用户管理</li>
+                    <li><a href="{{ url_for('admin.user_user') }}">求职者</a></li>
+                    <li><a href="{{ url_for('admin.users_boss') }}">企业</a></li>
+                    <li class="dropdown-header">职位管理</li>
+                    <li><a href="#">职位管理</a></li>
+                </ul>
+
+            </div>
+        </div>
+
+        {% block operation %}{% endblock %}
+    </div>
+    <div class="col-md-9">
+        {% block admin %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

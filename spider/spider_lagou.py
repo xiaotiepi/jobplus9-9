@@ -50,7 +50,7 @@ class LanGou(object):
         links = htmlEle.xpath("//a[@class='position_link']/@href")
         for detail_url in links:
             self.request_detail(detail_url)
-            time.sleep(2)
+            time.sleep(3)
 
     # 第二步，循环请求详情界面数据，窗口切换，关闭，切换到列表页
     def request_detail(self, url):
@@ -73,7 +73,12 @@ class LanGou(object):
         # financingEnv=htmlEle.xpath("//dl[@id='job_company']//li")[1]
         # // *[ @ id = "job_company"] / dd / ul / li[3] / text()
         financing = htmlEle.xpath("//ul[@class='c_feature']//text()")[7]
+<<<<<<< HEAD
         company_field = htmlEle.xpath("//ul[@class='c_feature']//text()")[12]
+=======
+        company_field = htmlEle.xpath("//ul[@class='c_feature']//text()")[2]
+        company_scale=htmlEle.xpath("//ul[@class='c_feature']//text()")[12]
+>>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
         xinshui = htmlEle.xpath("//span[@class='salary']/text()")[0]
         desc = "\n".join(htmlEle.xpath("//dd[@class='job_bt']//text()"))  # 获取该类下的所有段落的文本
         job_title = htmlEle.xpath("//div[@class='job-name']//span/text()")[0]
@@ -98,8 +103,13 @@ class LanGou(object):
             'company': compony.strip(),
             'desc': desc,
             'introduce': "暂无简介",
+<<<<<<< HEAD
             'address': address_one+address_tow+address_three.strip()
 
+=======
+            'address': address_one+address_tow+address_three.strip(),
+            'company_scale':company_scale.strip()
+>>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
         }
         print(job)
         self.jobs.append(job)

@@ -1,0 +1,13 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import render_form %}
+
+{% block title %}
+增加求职者
+{% endblock %}
+
+{% block admin %}
+<div class="form">
+  <h2>增加求职者</h2>
+  {{ render_form(form, url_for('admin.add_user')) }}
+</div>
+{% endblock %}

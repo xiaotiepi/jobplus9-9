@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from 'macros.html' import render_job,render_company %}
 {% block title %}Home{% endblock %}
 {% block body %}
 <div class="projects-header page-header">
@@ -7,15 +8,22 @@
 <ul class="nav nav-tabs list-title">
   <li role="presentation" class="active"><a href="#">最新职位</a></li>
 </ul>
+    {% for job  in jobs %}
+         {{ render_job(job) }}
+    {% endfor %}
+    
 <!--链接职位列表的链接-->
 <p class="list-more">
-<a href="#" class="btn btn-success btn-lg list-more-btn">查看更多</a>
+<a href="{{ url_for('job.job_list')}}" class="btn btn-success btn-lg list-more-btn">查看更多</a>
 </p>
 <ul class="nav nav-tabs list-title">
   <li role="presentation" class="active"><a href="#">最新公司</a></li>
 </ul>
+    {% for company  in companys %}
+         {{ render_company(company) }}
+    {% endfor %}
 <!--链接公司列表的链接-->
 <p class="list-more">
-<a href="#" class="btn btn-success btn-lg list-more-btn">查看更多</a>
+<a href="{{ url_for('company.company_list')}}" class="btn btn-success btn-lg list-more-btn">查看更多</a>
 </p>
 {% endblock %}
