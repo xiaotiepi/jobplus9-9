@@ -7,20 +7,12 @@ app = create_app("development")
 app.app_context().push()
 faker = Faker()
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
 # 生成一个用户boss
 def create_boss(company):
     user = User(username="boss", email='123456789@qq.com', password='123456', role=User.ROLE_BOSS)
     user.company = company
     return user
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
 def item_jobs():
         with open("jobs.json", 'r', encoding="utf8") as f:
             jobs = json.load(f)

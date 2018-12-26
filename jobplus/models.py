@@ -15,10 +15,6 @@ class BaseModel(db.Model):
 
 
 class User(BaseModel, UserMixin):
-<<<<<<< HEAD
-
-=======
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
     __tablename__ = 'users'
 
     ROLE_USER = 10
@@ -27,11 +23,7 @@ class User(BaseModel, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # unique是否唯一，index索引
-<<<<<<< HEAD
-    username = db.Column(db.String(32), unique=True, index=True,)
-=======
     username = db.Column(db.String(32), unique=True, index=True, )
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
     email = db.Column(db.String(64), unique=True, index=True, nullable=False)
     _password = db.Column(db.String(258), nullable=False)
     phone_number = db.Column(db.String(11), unique=True)
@@ -39,13 +31,8 @@ class User(BaseModel, UserMixin):
     work_resume = db.column(db.LargeBinary)
     role = db.Column(db.SmallInteger, default=ROLE_USER)
     company_id = db.Column(db.Integer, db.ForeignKey("company.id", ondelete="CASCADE"))
-<<<<<<< HEAD
-    company = db.relationship("Company", backref="user", uselist=False)   # 一个账号下有一个公司
-
-=======
     company = db.relationship("Company", backref="user", uselist=False)  # 一个账号下有一个公司
     is_banned =db.Column(db.Boolean,default=False)
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
     @property
     def password(self):
         return self._password
@@ -71,10 +58,6 @@ class Company(BaseModel):
     __tablename__ = 'company'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-<<<<<<< HEAD
-=======
-
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
     name = db.Column(db.String(64))  # 公司名字
     address = db.Column(db.String(256))  # 公司地址
     net_site = db.Column(db.String(64))  # 网站
@@ -84,17 +67,12 @@ class Company(BaseModel):
     city = db.Column(db.String(128))  # city
     financing = db.Column(db.String(54))  # 融资
     company_field = db.Column(db.String(128))  # 领域
-<<<<<<< HEAD
-    job_id = db.Column(db.Integer, db.ForeignKey("job.id"))
-    job = db.relationship("Job", backref="company")
-=======
     company_scale = db.column(db.String(128))  # 规模大小
 
     def __repr__(self):
         return self.name
 
 
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
 
 
 class Job(BaseModel):
@@ -107,8 +85,6 @@ class Job(BaseModel):
     study_experience = db.Column(db.String(54))  # 学历要求
     work_tags = db.Column(db.String(128))  # 职位标签
     salary_range = db.Column(db.String(54))  # 薪酬范围
-<<<<<<< HEAD
-=======
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"))
     company_msg = db.relationship("Company", backref="job")
 
@@ -117,4 +93,3 @@ class Job(BaseModel):
     @property
     def tag_list(self):
         return self.work_tags.split(',')
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6

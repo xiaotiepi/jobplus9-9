@@ -23,18 +23,12 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-<<<<<<< HEAD
-                    <li><a href="#">首页</a></li>
-                    <li><a href="{{ url_for('job.job_list')}}">职位</a></li>
-                    <li><a href="{{ url_for('company.company_list')}}">公司</a></li>
-=======
                     <li><a href="/">首页</a></li>
 
                     <li><a href="{{ url_for('job.job_list')}}">职位</a></li>
                     <li><a href="{{ url_for('company.company_list')}}">公司</a></li>
 
 
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if not current_user.is_authenticated %}

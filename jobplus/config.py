@@ -1,9 +1,5 @@
 import os
-<<<<<<< HEAD
-
-=======
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
 HOSTNAME = '127.0.0.1'
 PORT = "3306"
 DATABASE = "plus_job"
@@ -17,13 +13,10 @@ class BaseConfig(object):
 
     COMPANY_PER_PAGE = 9
     JOB_PER_PAGE = 9
-<<<<<<< HEAD
-=======
     ADMIN_PER_PAGE=10
     @staticmethod
     def init_app(app):
         pass
->>>>>>> a1fa68e6590dca79d1e4aa85a6c5370657a8e1b6
 
 
 class DevelopmentConfig(BaseConfig):
