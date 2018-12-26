@@ -13,7 +13,7 @@ class BaseConfig(object):
 
     COMPANY_PER_PAGE = 9
     JOB_PER_PAGE = 9
-
+    ADMIN_PER_PAGE=10
     @staticmethod
     def init_app(app):
         pass

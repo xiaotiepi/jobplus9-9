@@ -22,13 +22,7 @@ class LoginForm(FlaskForm):
             raise ValidationError('密码错误')
 
 
-class RegisterForm(FlaskForm):
-    username = StringField('姓名', validators=[DataRequired(), Length(1, 10)])
-    email = StringField('邮箱', validators=[DataRequired(), Email(), Length(1, 254)])
-    password = PasswordField('密码', validators=[DataRequired(), Length(6, 24)])
-    repeat_password = PasswordField('重复密码', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('提交')
-
+class Register(FlaskForm):
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('该邮箱已经被注册')
@@ -36,6 +30,14 @@ class RegisterForm(FlaskForm):
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('这个名字已经被注册了')
+
+    def validate_phone_number(self, field):
+        if User.query.filter_by(phone_number=field.data).first():
+            raise ValidationError("手机号已存在")
+
+    def validate_company(self, field):
+        if not Company.query.filter_by(name=field.data).first():
+            raise ValidationError('该公司不存在')
 
     @create(role=10)
     def create_user(self):
@@ -50,20 +52,20 @@ class RegisterForm(FlaskForm):
         return True
 
 
-class UserForm(FlaskForm):
+class RegisterForm(Register):
+    username = StringField('姓名', validators=[DataRequired(), Length(1, 10)])
+    email = StringField('邮箱', validators=[DataRequired(), Email(), Length(1, 254)])
+    password = PasswordField('密码', validators=[DataRequired(), Length(6, 24)])
+    repeat_password = PasswordField('重复密码', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('提交')
+
+
+class UserForm(Register):
     phone_number = StringField('手机号', validators=[DataRequired()])
     work_year = IntegerField("工作经验", validators=[DataRequired()])
     work_resume = StringField('简历', validators=[DataRequired(), URL()])
     company = StringField('公司')
     submit = SubmitField('提交')
-
-    def validate_company(self, field):
-        if not Company.query.filter_by(name=field.data).first():
-            raise ValidationError('该公司不存在')
-
-    def validate_phone_number(self, field):
-        if User.query.filter_by(phone_number=field.data).first():
-            raise ValidationError("手机号已存在")
 
     def complete(self, id):
         user = User.query.filter_by(id=id).first()
@@ -95,3 +97,61 @@ class BossForm(FlaskForm):
         db.session.add(company)
         db.session.add(user)
         db.session.commit()
+
+
+class AddUser(Register):
+    username = StringField('姓名', validators=[DataRequired(), Length(1, 10)])
+    email = StringField('邮箱', validators=[DataRequired(), Email(), Length(1, 254)])
+    password = PasswordField('密码', validators=[DataRequired(), Length(6, 24)])
+    phone_number = StringField('手机号', validators=[DataRequired()])
+    submit = SubmitField('提交')
+
+    def create_user(self):
+        user = User()
+        self.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+
+
+class AddBoss(Register):
+    username = StringField('公司名称', validators=[DataRequired(), Length(1, 10)])
+    email = StringField('邮箱', validators=[DataRequired(), Email(), Length(1, 254)])
+    password = PasswordField('密码', validators=[DataRequired(), Length(6, 24)])
+    net_site = StringField('网站链接', validators=[DataRequired(), URL()])
+    introduce = StringField("一句话简介", validators=[DataRequired()])
+    submit = SubmitField('提交')
+
+    def complate(self):
+        company = Company()
+        user = User.query.filter_by(email=self.email.data).first()
+        self.populate_obj(company)
+        company.name = user.username
+        user.company = company
+        db.session.add(company)
+        db.session.add(user)
+        db.session.commit()
+
+
+class EditBoss(AddBoss):
+    def validate_email(self, field):
+        pass
+
+    def validate_username(self, field):
+        pass
+
+
+class EditUser(AddUser):
+    def update_user(self, id):
+        user = User.query.get_or_404(id)
+        self.populate_obj(user)
+        db.session.add(user)
+        db.session.commit()
+
+    def validate_email(self, field):
+        pass
+
+    def validate_username(self, field):
+        pass
+
+    def validate_phone_number(self, field):
+        pass

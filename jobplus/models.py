@@ -32,7 +32,7 @@ class User(BaseModel, UserMixin):
     role = db.Column(db.SmallInteger, default=ROLE_USER)
     company_id = db.Column(db.Integer, db.ForeignKey("company.id", ondelete="CASCADE"))
     company = db.relationship("Company", backref="user", uselist=False)  # 一个账号下有一个公司
-
+    is_banned =db.Column(db.Boolean,default=False)
     @property
     def password(self):
         return self._password

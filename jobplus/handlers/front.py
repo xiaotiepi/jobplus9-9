@@ -1,4 +1,3 @@
-
 from flask import (Blueprint, render_template, redirect,
                    url_for, flash, request, abort, current_app)
 from jobplus.forms import LoginForm, RegisterForm
@@ -24,20 +23,24 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        login_user(user, form.remember_me.data)
-        if user.is_admin:
-            pass
-        elif user.is_boss:
-            if not User.query.filter_by(email=form.email.data).first().company_id:
-                return redirect(url_for('company.profile', id=user.id))
-            else:
-                return redirect(url_for('.index'))
+        if user.is_banned:
+            flash("该用户已被禁止登录", 'error')
+            redirect(url_for('front.login'))
         else:
-            if not User.query.filter_by(email=form.email.data).first().phone_number:
-                return redirect(url_for('user.profile', id=user.id))
+            login_user(user, form.remember_me.data)
+            if user.is_admin:
+                return redirect(url_for('admin.index'))
+            elif user.is_boss:
+                if not User.query.filter_by(email=form.email.data).first().company_id:
+                    return redirect(url_for('company.profile', id=user.id))
+                else:
+                    return redirect(url_for('.index'))
             else:
-                return redirect(url_for('.index'))
-        flash("您的邮箱或密码输入错误,请重新输入", "error")
+                if not User.query.filter_by(email=form.email.data).first().phone_number:
+                    return redirect(url_for('user.profile', id=user.id))
+                else:
+                    return redirect(url_for('.index'))
+            flash("您的邮箱或密码输入错误,请重新输入", "error")
     return render_template('login.html', form=form)
 
 
@@ -52,7 +55,7 @@ def logout():
 @front.route("/companyregister", methods=["GET", "POST"])
 def register_boss():
     form = RegisterForm()
-    form.username.label="企业名称"
+    form.username.label = "企业名称"
     if form.validate_on_submit():
         form.create_boss()
         flash('注册成功，请登录！', 'success')
@@ -68,5 +71,3 @@ def register_user():
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
     return render_template('user_register.html', form=form)
-
-
