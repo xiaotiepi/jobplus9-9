@@ -51,11 +51,13 @@
 <div class="col-sm-6 col-md-4">
   <div class="job-box">
     <div class="caption">
+      <a href="{{job.id}}">
       <b>{{ job.job_title }}</b>
       <p> 经验{{ job.work_experience }} {% if job.work_experience != '不限' %}年{% endif %} 学历{{ job.study_experience }}</p>
       {% for tag in job.tag_list %}
       <span class="label label-default">{{ tag }}</span>
       {% endfor %}
+      </a>
     </div>
     <hr>
     <div class="media">

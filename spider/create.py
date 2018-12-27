@@ -1,8 +1,19 @@
+import json
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_login import UserMixin
+from faker import Faker
 
-from werkzeug.security import generate_password_hash, check_password_hash
+# 记得更改成自己的数据库接口
+DB_URI = 'mysql://xiaotiepi:12580@localhost:3306/plus_job?charset=utf8'
+engine = create_engine(DB_URI)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+faker = Faker()
+
 
 db = SQLAlchemy()
 
@@ -39,25 +50,6 @@ class User(BaseModel, UserMixin):
     company = db.relationship(
         "Company", backref="user", uselist=False)  # 一个账号下有一个公司
     is_banned = db.Column(db.Boolean, default=False)
-
-    @property
-    def password(self):
-        return self._password
-
-    @password.setter
-    def password(self, pwd):
-        self._password = generate_password_hash(pwd)
-
-    def check_pwd(self, pwd):
-        return check_password_hash(self._password, pwd)
-
-    @property
-    def is_boss(self):
-        return self.role == self.ROLE_BOSS
-
-    @property
-    def is_admin(self):
-        return self.role == self.ROLE_ADMIN
 
 
 class Company(BaseModel):
@@ -99,3 +91,60 @@ class Job(BaseModel):
     @property
     def tag_list(self):
         return self.work_tags.split(',')
+
+
+def create_boss(company):
+    user = User(username="boss", email='123456789@qq.com', password='123456', role=User.ROLE_BOSS)
+    user.company = company
+    return user
+
+
+def item_jobs():
+        with open("/home/xiaotiepi/jobplus9-9/spider/jobs.json", 'r', encoding="utf8") as f:
+            jobs = json.load(f)
+            print(jobs)
+            job_list = []
+            company_list = []
+            for job in jobs:
+                company = Company(name=job["company"],
+                                  address=job["address"],
+                                  net_site=job["net_site"],
+                                  logo=job["logo"],
+                                  introduce=faker.sentence(),
+                                  detail=job["desc"],
+                                  city=job["city"],
+                                  financing=job["financing"],
+                                  company_field=job["company_field"],
+                                  company_scale=job['company_scale']
+                                  )
+                jobdata = Job(job_title=job['job_title'],
+                              work_experience=job['work_experience'],
+                              study_experience=job['study_experience'],
+                              salary_range=job['xinshui'],
+                              work_tags=job['work_tags'],
+                              company_msg=company)
+                job_list.append(jobdata)
+                company_list.append(company)
+
+            return job_list, company_list
+
+
+def main():
+    jobs, companys = item_jobs()
+    user = create_boss(companys[0])
+    session.add(user)
+    for job in jobs:
+        session.add(job)
+    for com in companys:
+        session.add(com)
+    try:
+        session.commit()
+        print("数据生成完成")
+    except Exception as e:
+        print(e.args)
+        print("如果已经有boss账号了，生成数据时，请注释48,49行")
+        session.rollback()
+
+
+if __name__ == '__main__':
+    main()

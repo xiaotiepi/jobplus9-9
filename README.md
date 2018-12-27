@@ -11,7 +11,8 @@
 1. 确保存在`plus_job`名称的数据库，manage.py同级目录运行 `flask db upgrade`  生成迁移文件
 2. 运行spider_laou.py文件，爬取拉钩职位信息及对应的公司信息，保存到jobs.json文件
 （太频繁，拉钩会弹出登录页）
-3. 运行 creat_data.py文件，会默认生成一个boss账号，该账号会关联数据中生成的第一个公司。每个公司下，有一个对应的职位
+3. 运行 create_data.py文件，会默认生成一个boss账号，该账号会关联数据中生成的第一个公司。每个公司下，有一个对应的职位
+    如果create_data.py生成数据报错no model jobplus，可以运行create.py文件
 
 ## 测试使用
 

@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, current_app
+from flask import (Blueprint, request, render_template, url_for, flash, current_app, abort, redirect)
 from ..models import Job
-
+from flask_login import login_required, current_user
 job = Blueprint("job", __name__, url_prefix='/job')
 
 
@@ -14,3 +14,13 @@ def job_list():
     )
     posts = pagination.items  # 当前页数的记录列表
     return render_template('job/job_list.html', pagination=pagination, posts=posts)
+
+
+@job.route("/<int:id>")
+def job_detail(id):
+    job = Job.query.filter_by(id=id).first()
+    if job:
+        return render_template('job/job_detail.html', job=job)
+    else:
+        abort(404)
+

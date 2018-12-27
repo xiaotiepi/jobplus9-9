@@ -5,6 +5,7 @@ PORT = "3306"
 DATABASE = "plus_job"
 USERNAME = "root"
 DB_URI = "mysql://{}@{}:{}/{}?charset=utf8".format(USERNAME, HOSTNAME, PORT, DATABASE)
+# DB_URI = 'mysql://xiaotiepi:12580@localhost:3306/plus_job?charset=utf8'
 
 
 class BaseConfig(object):
@@ -13,7 +14,8 @@ class BaseConfig(object):
 
     COMPANY_PER_PAGE = 9
     JOB_PER_PAGE = 9
-    ADMIN_PER_PAGE=10
+    ADMIN_PER_PAGE = 10
+
     @staticmethod
     def init_app(app):
         pass
