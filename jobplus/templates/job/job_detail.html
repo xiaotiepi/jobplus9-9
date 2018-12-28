@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{job.name}}
+{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-8">
+            <span class="time">发布于 {{job.create_at}}</span>
+            <h1>{{job.job_title}}</h1>
+            <p>
+                <span class="job-salary">{{job.salary_range}}</span>&nbsp;
+                <em class="vline"></em>
+                {{job.work_experience}}
+                <em class="vline"></em>
+                {{job.study_experience}}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{%block body%}
+<div class="container">
+    <div class="col-md-8">
+        <div class="job-detail">
+            <h3>职位标签</h3>
+            <br>
+            <p>{{job.work_tags}}</p>
+            <br>
+            <h3>职位描述</h3>
+            <br>
+            <p>{{job.company_msg.detail}}</p>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img src="{{'http://'+job.company_msg.logo}}" class="media-object" height="96" width="96">
+                </a>
+            </div>
+            <div class="media-body">
+            </div>
+        </div>
+    
+        <h4>{{job.company_msg.name}}</h4>
+        <p>领域：{{job.company_msg.company_field}}</p>
+        <p>融资：{{job.company_msg.financing}}</p>
+        <p>地址：{{job.company_msg.address}}</p>
+    </div>
+</div>
+{% endblock %}

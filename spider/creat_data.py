@@ -3,9 +3,11 @@ from jobplus.models import User, Company, Job, db
 from jobplus import create_app
 from faker import Faker
 
+
 app = create_app("development")
 app.app_context().push()
 faker = Faker()
+
 
 # 生成一个用户boss
 def create_boss(company):
@@ -13,15 +15,16 @@ def create_boss(company):
     user.company = company
     return user
 
+
 def item_jobs():
         with open("jobs.json", 'r', encoding="utf8") as f:
             jobs = json.load(f)
             print(jobs)
-            job_list=[]
-            company_list=[]
+            job_list = []
+            company_list = []
             for job in jobs:
-                company = Company(name=job["company"]
-                                  , address=job["address"],
+                company = Company(name=job["company"],
+                                  address=job["address"],
                                   net_site=job["net_site"],
                                   logo=job["logo"],
                                   introduce=faker.sentence(),
@@ -35,8 +38,8 @@ def item_jobs():
                               work_experience=job['work_experience'],
                               study_experience=job['study_experience'],
                               salary_range=job['xinshui'],
-                              work_tags=job['work_tags']
-                              ,company_msg=company)
+                              work_tags=job['work_tags'],
+                              company_msg=company)
                 job_list.append(jobdata)
                 company_list.append(company)
 

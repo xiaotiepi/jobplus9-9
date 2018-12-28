@@ -71,3 +71,12 @@ def register_user():
         flash('注册成功，请登录！', 'success')
         return redirect(url_for('.login'))
     return render_template('user_register.html', form=form)
+
+
+@front.route('/homepage/<int:id>')
+def homepage(id):
+    user = User.query.filter_by(id=id).first()
+    if user:
+        return render_template('user/homepage.html', user=user)
+    else:
+        abort(404)
