@@ -86,12 +86,14 @@ class Job(BaseModel):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     job_title = db.Column(db.String(128))  # 工作名字
+    # location = db.Column(db.String(54))  # 工作地点
     work_experience = db.Column(db.String(54))  # 工作经验要求
     study_experience = db.Column(db.String(54))  # 学历要求
     work_tags = db.Column(db.String(128))  # 职位标签
     salary_range = db.Column(db.String(54))  # 薪酬范围
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"))
     company_msg = db.relationship("Company", backref="job")
+    is_banned = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return self.job_title

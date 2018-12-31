@@ -22,8 +22,8 @@ Admin - users
         <th>邮箱</th>
         <th>手机号</th>
         <th>状态</th>
-
     </tr>
+    </thead>
     <tbody>
     {% for user in pagination.items %}
     <tr>
@@ -58,7 +58,6 @@ Admin - users
     </tr>
     {% endfor %}
     </tbody>
-    </thead>
 </table>
 
 {{ render_pagination(pagination, 'admin.user_user') }}

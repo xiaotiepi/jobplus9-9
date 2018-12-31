@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import (StringField, PasswordField, SubmitField, BooleanField,
-                     ValidationError, IntegerField, FileField)
+                     ValidationError, IntegerField, FileField, TextAreaField,
+                     SelectField)
 from wtforms.validators import Length, Email, DataRequired, EqualTo, URL
-from .models import db, User, Company
+from .models import db, User, Company, Job
 from .decorators import create
 
 
@@ -155,3 +156,46 @@ class EditUser(AddUser):
 
     def validate_phone_number(self, field):
         pass
+
+
+class JobForm(FlaskForm):
+    job_title = StringField('职位名称')
+    # location = StringField('工作地点')
+    work_experience = SelectField(
+        '工作经验',
+        choices=[
+            ('不限', '不限'),
+            ('1-3', '1-3年'),
+            ('3-5', '3-5年'),
+            ('5+', '5年以上')
+        ]
+    )
+    study_experience = SelectField(
+        '学历要求',
+        choices=[
+            ('不限', '不限'),
+            ('专科', '专科'),
+            ('本科', '本科'),
+            ('硕士', '硕士'),
+            ('博士', '博士')
+        ]
+    )
+    work_tags = StringField('标签（英文,分隔）')
+    salary_range = StringField('工资范围（如1000-2000）')
+    company_name = StringField('公司名称')
+    submit = SubmitField('发布')
+
+    def create_job(self, company_id):
+        job = Job()
+        self.populate_obj(job)
+        job.company_id = company_id
+        # job.company_msg = db.relationship("Company", backref="job")
+        db.session.add(job)
+        db.session.commit()
+        return job
+
+    def update_job(self, job):
+        self.populate_obj(job)
+        db.session.add(job)
+        db.session.commit()
+        return job
