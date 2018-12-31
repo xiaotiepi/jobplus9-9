@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect, request, current_app, flash
+from flask import Blueprint, render_template, url_for, redirect, request, current_app, flash, session
 from flask_login import current_user
 from jobplus.models import User, db,Company
 from jobplus.forms import AddBoss, AddUser,EditBoss,EditUser
@@ -20,6 +20,7 @@ def index():
 @admin.route("/users/boss")
 def users_boss():
     page = request.args.get('page', default=1, type=int)
+    session['user_boss']=page
     pagination = User.query.filter_by(role=20).paginate(
         page=page,
         per_page=current_app.config['ADMIN_PER_PAGE'],
@@ -31,6 +32,7 @@ def users_boss():
 @admin.route("/users/user")
 def user_user():
     page = request.args.get('page', default=1, type=int)
+    session['user_page']=page
     pagination = User.query.filter_by(role=10).paginate(
         page=page,
         per_page=current_app.config['ADMIN_PER_PAGE'],
@@ -46,9 +48,9 @@ def ban_user(id):
     db.session.add(user)
     db.session.commit()
     if user.is_boss:
-        return redirect(url_for('admin.users_boss'))
+        return redirect(url_for('admin.users_boss',page=session.get('user_boss')))
     else:
-        return redirect(url_for('admin.user_user'))
+        return redirect(url_for('admin.user_user',page=session.get('user_page')))
 
 
 @admin.route('/users/adduser', methods=["GET", "POST"])
@@ -77,9 +79,9 @@ def delete_user(id):
     db.session.commit()
     flash('用户 "{}" 删除成功'.format(user.username), 'success')
     if user.is_boss:
-        return redirect(url_for('admin.users_boss'))
+        return redirect(url_for('admin.users_boss',page=session.get('user_boss')))
     else:
-        return redirect(url_for('admin.user_user'))
+        return redirect(url_for('admin.user_user',page=session.get('user_page')))
 
 
 @admin.route('/users/edituser/<int:id>', methods=["GET", "POST"])
@@ -89,7 +91,7 @@ def edit_user(id):
     if form.validate_on_submit():
         form.update_user(id)
         flash('用户信息修改成功', 'success')
-        return redirect(url_for('admin.user_user'))
+        return redirect(url_for('admin.user_user',page=session.get('user_page')))
     return render_template('admin/edit_user.html', form=form, user=user)
 
 
@@ -106,5 +108,5 @@ def edit_boss(id):
     if form.validate_on_submit():
         form.complate()
         flash('公司信息修改成功', 'success')
-        return redirect(url_for('admin.users_boss'))
+        return redirect(url_for('admin.users_boss',page=session.get('user_boss')))
     return render_template('admin/edit_boss.html', form=form, user=user)
