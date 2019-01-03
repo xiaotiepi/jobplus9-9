@@ -76,7 +76,8 @@ class UserForm(Register):
         user.work_year = self.work_year.data
         db.session.add(user)
         db.session.commit()
-
+    def validate_company(self, field):
+        pass
 
 class BossForm(FlaskForm):
     name = StringField('企业名称', validators=[DataRequired(), Length(3, 50)])

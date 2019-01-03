@@ -52,12 +52,20 @@
         <p>领域：{{job.company_msg.company_field}}</p>
         <p>融资：{{job.company_msg.financing}}</p>
         <p>地址：{{job.company_msg.address}}</p>
-        {% if current_user.is_authenticated and state %}
+        {% if current_user.is_authenticated and not state %}
         <p><a href="{{ url_for('job.apply',job_id=job.id) }}" type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             投递简历
         </a>
         </p>
+        {% elif state %}
+        <li class="disabled">
+            <p><a href="#" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                已投递
+            </a>
+            </p>
+        </li>
         {% endif %}
     </div>
 </div>

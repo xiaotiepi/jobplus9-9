@@ -22,11 +22,13 @@ def job_list():
 @job.route("/<int:id>")
 def job_detail(id):
     job = Job.query.filter_by(id=id).first()
-    if job:
+    if job and current_user.is_authenticated:
         if Delivery.query.filter_by(user_id=current_user.id, job_id=id).first():
-            return render_template('job/job_detail.html', job=job, state=False)
-        else:
             return render_template('job/job_detail.html', job=job, state=True)
+        else:
+            return render_template('job/job_detail.html', job=job, state=False)
+    elif job:
+        return render_template('job/job_detail.html', job=job, state=False)
     else:
         abort(404)
 
