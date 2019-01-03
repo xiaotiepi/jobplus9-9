@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% from "macros.html" import render_pagination %}
+{% block body %}
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="{{ url_for('job.todo') }}">未处理列表</a></li>
+        <li role="presentation"><a href="{{ url_for('job.rejectlist') }}">不合适列表</a></li>
+        <li role="presentation"><a href="{{ url_for('job.interview')}}">面试列表</a></li>
+    </ul>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>职位名称</th>
+            <th>求职者名称</th>
+            <!--<th>求职者基本信息</th>-->
+            <th>简历链接地址</th>
+            <th>投递时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in pagination.items %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.job.job_title }}</td>
+            <td>{{ user.user.username}}</td>
+            <td>{{ user.user.work_resume}}</td>
+            <td>{{ user.create_at}}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="{{ url_for('job.reject',id=user.id) }}" type="button" class="btn btn-default">不合适</a>
+                    <a href="{{ url_for('job.inter',id=user.id) }}" type="button" class="btn btn-default">面试</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {{ render_pagination(pagination, 'job.todo') }}
+</div>
+{% endblock %}

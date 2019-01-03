@@ -39,8 +39,7 @@
       <li class="active"><a href="#">{{page}} <span class="sr-only">(current)</span></a></li>
       {% endif %}
     {% else %}
-{#      <span class=ellipsis>?</span>#}
->>>>>>> 添加admin的职位管理功能，修复原有的bug若干。职位编辑仍有一些潜在问题
+<!--{# <span class=ellipsis>?</span>#}-->
     {% endif %}
   {% endfor %}
   <li{% if not pagination.has_next %} class="disabled"{% endif %}><a href="{{url_for(endpoint, page=pagination.next_num) if pagination.has_next else '#'}}">&raquo;</a></li>
@@ -52,7 +51,7 @@
 <div class="col-sm-6 col-md-4">
   <div class="job-box">
     <div class="caption">
-      <a href="{{job.id}}">
+      <a href="{{url_for('job.job_detail',id=job.id)}}">
       <b>{{ job.job_title }}</b>
       <p> 经验{{ job.work_experience }} {% if job.work_experience != '不限' %}年{% endif %} 学历{{ job.study_experience }}</p>
       {% for tag in job.tag_list %}

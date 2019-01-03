@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_pagination %}
+{% block body %}
+<div class="container">
+    <a href="{{ url_for('job.add_job') }}" type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        添加职位
+    </a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>职位名称</th>
+            <th>发布时间</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in pagination.items %}
+        <tr>
+            <td>{{ job.id }}</td>
+            <td>{{ job.job_title }}</td>
+            <td>{{job.create_at}}</td>
+            {% if job.is_banned %}
+            <td><span class="glyphicon glyphicon-ban-circle" title＝"禁用" aria-hidden="true"></span></td>
+            {% else %}
+            <td><span class="glyphicon glyphicon-ok-circle" title＝"启用" aria-hidden="true"></span></td>
+            {% endif %}
+            <td>
+                <div class="btn-group" role="group">
+                    {% if not job.is_banned %}
+                    <a href="{{ url_for('job.ban_job',id=job.id) }}" type="button" class="btn btn-default" title＝"禁用">
+                    <span class="glyphicon glyphicon-ban-circle" title＝"禁用" aria-hidden="true"></span>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('job.ban_job',id=job.id) }}" type="button" class="btn btn-default" title＝"启用">
+                    <span class="glyphicon glyphicon-ok-circle" title＝"启用" aria-hidden="true"></span>
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('job.edit_job',id=job.id)}}" type="button" class="btn btn-default" title＝"编辑">
+                    <span class="glyphicon glyphicon-pencil" title＝"编辑" aria-hidden="true"></span>
+                    </a>
+                    <a href="{{ url_for('job.delete_job',id=job.id) }}" type="button" class="btn btn-default" title＝"删除">
+                    <span class="glyphicon glyphicon-trash" title＝"删除" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+    {{ render_pagination(pagination, 'job.admin') }}
+</div>
+{% endblock %}

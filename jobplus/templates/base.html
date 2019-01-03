@@ -8,65 +8,76 @@
     {% block css %} {% endblock%}
 </head>
 <body>
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+                {% if current_user.is_boss %}
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+                {% endif %}
             </button>
             <a class="navbar-brand" href="/">JobPlus</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('job.job_list')}}">职位</a></li>
-                    <li><a href="{{ url_for('company.company_list')}}">公司</a></li>
-
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if not current_user.is_authenticated %}
-                        <li><a href="{{ url_for('front.register_boss') }}">公司注册</a></li>
-                        <li><a href="{{ url_for('front.register_user') }}">求职者注册</a></li>
-                        <li><a href="{{ url_for('front.login') }}">登录</a></li>
-                    {% else %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ current_user.username }}<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li role="separator" class="divider"></li>
-                                <li><a href="{{ url_for('front.homepage',id=current_user.id) }}">我的主页</a></li>
-                                <li><a href="{{ url_for('front.logout') }}">退出登录</a></li>
-                            </ul>
-                        </li>
-                    {% endif %}                    
-                </ul>
-            </div>
         </div>
-    </nav>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-          {% for category, message in messages %}
-          <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ message }}
-          </div>
-          {% endfor %}
-          {% endif %}
-    {% endwith %}
-    {% block head %}
-    {% endblock %}
-    {% block body %}
-    {% endblock %}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('job.job_list')}}">职位</a></li>
+                <li><a href="{{ url_for('company.company_list')}}">公司</a></li>
+                {% if current_user.is_boss %}
+                <li><a href="{{ url_for('job.admin') }}">职位管理</a></li>
+                <li><a href="{{ url_for('job.todo') }}">简历管理</a></li>
+                {% endif %}
 
-    <div class="footer">
-        <p align="center" style="margin-top: 20px;color:#878B91;">
-            Copyright © 2018 By 实验楼某无名小组
-        </p>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not current_user.is_authenticated %}
+                <li><a href="{{ url_for('front.register_boss') }}">公司注册</a></li>
+                <li><a href="{{ url_for('front.register_user') }}">求职者注册</a></li>
+                <li><a href="{{ url_for('front.login') }}">登录</a></li>
+                {% else %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{ current_user.username }}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('front.homepage',id=current_user.id) }}">我的主页</a></li>
+                        <li><a href="{{ url_for('front.logout') }}">退出登录</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
+</nav>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% block head %}
+{% endblock %}
+{% block body %}
+{% endblock %}
+
+<div class="footer">
+    <p align="center" style="margin-top: 20px;color:#878B91;">
+        Copyright © 2018 By 实验楼某无名小组
+    </p>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </body>
