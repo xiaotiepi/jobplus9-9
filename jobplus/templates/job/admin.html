@@ -2,10 +2,7 @@
 {% from "macros.html" import render_pagination %}
 {% block body %}
 <div class="container">
-    <a href="{{ url_for('job.add_job') }}" type="button" class="btn btn-primary">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        添加职位
-    </a>
+
     <table class="table">
         <thead>
         <tr>
@@ -13,6 +10,12 @@
             <th>职位名称</th>
             <th>发布时间</th>
             <th>状态</th>
+            <th>
+                <a href="{{ url_for('job.add_job') }}" type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    添加职位
+                </a>
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -52,5 +55,7 @@
     </table>
 
     {{ render_pagination(pagination, 'job.admin') }}
+
+
 </div>
 {% endblock %}

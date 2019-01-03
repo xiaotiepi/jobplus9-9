@@ -32,8 +32,13 @@
                 <li><a href="{{ url_for('job.job_list')}}">职位</a></li>
                 <li><a href="{{ url_for('company.company_list')}}">公司</a></li>
                 {% if current_user.is_boss %}
-                <li><a href="{{ url_for('job.admin') }}">职位管理</a></li>
-                <li><a href="{{ url_for('job.todo') }}">简历管理</a></li>
+                    <li><a href="{{ url_for('job.admin') }}">职位管理</a></li>
+                    <li><a href="{{ url_for('job.todo') }}">简历管理</a></li>
+                {% endif %}
+                {% if current_user.is_admin %}
+                    <li><a href="{{ url_for('admin.user_user') }}">求职者管理</a></li>
+                    <li><a href="{{ url_for('admin.users_boss') }}">企业管理</a></li>
+                    <li><a href="{{ url_for('admin.admin_jobs') }}">职位管理</a></li>
                 {% endif %}
 
             </ul>
@@ -49,6 +54,12 @@
                     <ul class="dropdown-menu">
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ url_for('front.homepage',id=current_user.id) }}">我的主页</a></li>
+                        {% if current_user.is_admin %}
+                            <li><a href="{{ url_for('admin.index') }}">管理员页面</a></li>
+{#                            <li><a href="{{ url_for('admin.user_user') }}">求职者管理</a></li>#}
+{#                            <li><a href="{{ url_for('admin.users_boss') }}">企业管理</a></li>#}
+{#                            <li><a href="{{ url_for('admin.admin_jobs') }}">职位管理</a></li>#}
+                        {% endif %}
                         <li><a href="{{ url_for('front.logout') }}">退出登录</a></li>
                     </ul>
                 </li>

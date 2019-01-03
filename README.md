@@ -5,7 +5,17 @@
 - python3.6
 - pip安装requirement.txt。命令或许是`sudo pip3 install requirement.txt`.
 - 如果MySQL数据库有密码，记得配置环境变量，若密码为123456：
-`set DEVELOP_DATABASE_URL=mysql://root:123456@localhost:3306/plus_job?charset=utf8`
+`export DEVELOP_DATABASE_URL=mysql://root:123456@localhost:3306/plus_job?charset=utf8`
+- 迁移数据库，其中，`flask db init`会创建migrations，若该文件已存在，跳过此行代码。
+```shell
+export FLASK_APP=manage.py
+export FLASK_DEBUG=1
+flask db init
+flask db migrate -m "initial migration"
+flask db upgrade
+```
+
+> 若在Windows上，请把export改完set。
 
 ## 数据生成
 1. 确保存在`plus_job`名称的数据库，manage.py同级目录运行 `flask db upgrade`  生成迁移文件

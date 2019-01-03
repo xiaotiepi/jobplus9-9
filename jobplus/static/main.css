@@ -89,6 +89,12 @@ a.list-more-btn {
   color: #999;
 }
 
+.table thead tr th,
+.table tbody tr td{
+    line-height: 38px;
+    text-align: center;
+        }
+
 .timesince {
     font-size: 12px;
 }
