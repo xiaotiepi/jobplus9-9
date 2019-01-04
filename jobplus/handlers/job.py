@@ -10,7 +10,7 @@ job = Blueprint("job", __name__, url_prefix='/job')
 @job.route("/")
 def job_list():
     page = request.args.get("page", default=1, type=int)
-    pagination = Job.query.order_by(Job.create_at.desc()).paginate(
+    pagination = Job.query.filter_by(is_banned=False).order_by(Job.create_at.desc()).paginate(
         page=page,
         per_page=current_app.config['JOB_PER_PAGE'],
         error_out=False

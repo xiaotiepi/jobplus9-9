@@ -13,7 +13,6 @@
             <th>薪酬范围</th>
             <th>学历要求</th>
             <th>状态</th>
-            <th></th>
             <th>
                 <a href="{{ url_for('admin.add_job') }}" type="button" class="btn btn-primary">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -30,7 +29,6 @@
             <td>{{ job.company_msg.name }}</td>
             <td>{{ job.salary_range }}</td>
             <td>{{ job.study_experience }}</td>
-            <td>{{ job.is_banned }}</td>
             {% if job.is_banned %}
             <td><span class="glyphicon glyphicon-ban-circle" title="禁用" aria-hidden="true"></span></td>
             {% else %}

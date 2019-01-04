@@ -10,7 +10,7 @@ front = Blueprint("front", __name__)
 @front.route("/")
 def index():
     commpanys = Company.query.limit(current_app.config['COMPANY_PER_PAGE'])
-    jobs = Job.query.limit(current_app.config['JOB_PER_PAGE'])
+    jobs = Job.query.filter_by(is_banned=False).limit(current_app.config['JOB_PER_PAGE'])
     data = {
         'companys': commpanys,
         'jobs': jobs
