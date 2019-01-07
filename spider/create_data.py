@@ -3,6 +3,7 @@ from jobplus.models import User, Company, Job, db
 from jobplus import create_app
 from faker import Faker
 
+
 app = create_app("development")
 app.app_context().push()
 faker = Faker()
